@@ -145,7 +145,7 @@ def analyze_folder(person_path: str) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="각 피험자 폴더의 CSV를 읽어 속도/가속도 및 Phase Portrait 그래프를 저장합니다."
+        description="각 피험자의 속도/가속도 및 Phase Portrait 그래프를 저장합니다."
     )
     parser.add_argument("--root_dir", required=True, help="Acquisition 결과 루트 폴더")
     args = parser.parse_args()
@@ -163,7 +163,7 @@ def main() -> None:
     for folder_name in subfolders:
         analyze_folder(os.path.join(args.root_dir, folder_name))
 
-    print("\n✨ 모든 시각화가 완료되었습니다!")
+    print("\n 모든 시각화가 완료되었습니다!")
 
 
 if __name__ == "__main__":
