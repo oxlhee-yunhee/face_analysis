@@ -156,6 +156,17 @@ output_results/
     └── ...
 ```
 
+
+## 한계 및 향후 연구
+
+- **표본 수**: 건강한 피험자 8명으로 임상 데이터(실제 구안와사 환자) 미포함
+- **MediaPipe 추정 오차**: 표정이 작은 경우 및 표정형성 과정의 개개인의 차이 등으로 랜드마크 추정 노이즈가 신호처럼 보일 수 있음 — 절대값보다 상대 지표(Corr, AAI, nDAA)가 더 강건함
+- **2D 분석**: 깊이 정보 미반영 — 3D 재구성은 향후 과제
+- **임상 검증**: 구안와사 환자의 주 단위 회복 추이 종단 추적이 최우선 후속 과제
+
+---
+
+
 ## References
 
 [1] N. Mueller et al., "High-resolution surface electromyographic activities of facial muscles during mimic movements in healthy adults: A prospective observational study," *Front. Hum. Neurosci.*, vol. 16, Art. no. 1029415, 2022.
@@ -166,14 +177,7 @@ output_results/
 
 ---
 
-## 한계 및 향후 연구
 
-- **표본 수**: 건강한 피험자 8명으로 임상 데이터(실제 구안와사 환자) 미포함
-- **MediaPipe 추정 오차**: 표정이 작은 경우 및 표정형성 과정의 개개인의 차이 등으로 랜드마크 추정 노이즈가 신호처럼 보일 수 있음 — 절대값보다 상대 지표(Corr, AAI, nDAA)가 더 강건함
-- **2D 분석**: 깊이 정보 미반영 — 3D 재구성은 향후 과제
-- **임상 검증**: 구안와사 환자의 주 단위 회복 추이 종단 추적이 최우선 후속 과제
-
----
 
 ## Citation
 
