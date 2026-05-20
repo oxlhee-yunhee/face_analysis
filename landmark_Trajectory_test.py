@@ -122,7 +122,7 @@ def visualize_folder(person_path: str) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="입술 3쌍(Pair 1–3) 랜드마크의 속도 및 Phase Portrait을 시각화합니다."
+        description="입술 3쌍(Pair 1–3) 랜드마크의 속도 및 Phase Portrait을 시각화"
     )
     parser.add_argument("--root_dir", required=True, help="Acquisition 결과 루트 폴더")
     args = parser.parse_args()
@@ -136,7 +136,7 @@ def main() -> None:
     for folder_name in subfolders:
         visualize_folder(os.path.join(args.root_dir, folder_name))
 
-    print("\n✨ 시각화 완료!")
+    print("\n 시각화 완료!")
 
 
 if __name__ == "__main__":
