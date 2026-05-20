@@ -156,6 +156,14 @@ output_results/
     └── ...
 ```
 
+## References
+
+[1] N. Mueller et al., "High-resolution surface electromyographic activities of facial muscles during mimic movements in healthy adults: A prospective observational study," *Front. Hum. Neurosci.*, vol. 16, Art. no. 1029415, 2022.
+
+[2] M. F. Valstar and M. Pantic, "Fully automatic recognition of the temporal phases of facial actions," *IEEE Trans. Syst., Man, Cybern. B (Cybern.)*, vol. 42, no. 1, pp. 28–43, Feb. 2012.
+
+[3] T. S. Kim, H. S. Lee, and K. J. Park, "Quantitative analysis of movements in facial nerve palsy with surface electromyography and kinematic analysis," *Clin. Biomech.*, vol. 18, no. 7, pp. 605–615, 2003.
+
 ---
 
 ## 한계 및 향후 연구
