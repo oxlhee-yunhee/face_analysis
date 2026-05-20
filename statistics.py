@@ -8,8 +8,6 @@ statistics.py
   DAA          — Dynamic Asymmetry Area (좌우 속도 적분 면적 차)
   Corr         — Pearson 상관계수 (좌우 속도 시계열)
   TimeLag      — 교차상관 기반 시간 지연 (프레임 단위)
-  MeanRelPhase — 힐베르트 변환 기반 평균 상대 위상 (rad)
-  PhaseVar     — 상대 위상의 표준편차
   AAI          — Acceleration Asymmetry Index (가속도 std 정규화 차)
   PEI          — Path Efficiency Index (경로 길이 / 직선 변위)
 
@@ -55,13 +53,6 @@ def time_lag_cal(l_vel: np.ndarray, r_vel: np.ndarray) -> int:
     return best_idx - (len(l) - 1)
 
 
-def relative_phase_cal(l_vel: np.ndarray, r_vel: np.ndarray) -> np.ndarray:
-    """힐베르트 변환으로 좌우 속도 신호의 순간 상대 위상(rad) 계산."""
-    l_analytic = hilbert(l_vel - np.mean(l_vel))
-    r_analytic = hilbert(r_vel - np.mean(r_vel))
-    return np.unwrap(np.angle(l_analytic)) - np.unwrap(np.angle(r_analytic))
-
-
 # ---------------------------------------------------------------------------
 # 핵심 분석 함수
 # ---------------------------------------------------------------------------
@@ -96,7 +87,6 @@ def analyze_by_keyword(root_path: str, keyword: str) -> pd.DataFrame:
                 l_vel = df[f"{pid}_L_Vel"].values
                 r_vel = df[f"{pid}_R_Vel"].values
 
-                rel_phase = relative_phase_cal(l_vel, r_vel)
 
                 l_std = float(np.std(np.diff(l_vel)))
                 r_std = float(np.std(np.diff(r_vel)))
@@ -109,8 +99,6 @@ def analyze_by_keyword(root_path: str, keyword: str) -> pd.DataFrame:
                     "DAA":           float(np.trapz(np.abs(l_vel - r_vel), x=frames)),
                     "Corr":          float(pearsonr(l_vel, r_vel)[0]),
                     "TimeLag":       time_lag_cal(l_vel, r_vel),
-                    "MeanRelPhase":  float(np.mean(np.abs(rel_phase))),
-                    "PhaseVar":      float(np.std(rel_phase)),
                     "AAI":           abs(l_std - r_std) / (l_std + r_std + 1e-6),
                     "PEI":           (l_pei + r_pei) / 2,
                 })
@@ -150,7 +138,7 @@ def main() -> None:
     df_b = analyze_by_keyword(args.root_dir, args.keyword_b)
 
     if df_a.empty or df_b.empty:
-        print("\n❌ 한쪽 이상의 데이터가 없습니다. --keyword_a / --keyword_b 또는 --root_dir을 확인하세요.")
+        print("\n 한쪽 이상의 데이터가 없습니다. --keyword_a / --keyword_b 또는 --root_dir을 확인하세요.")
         return
 
     label_a = args.keyword_a.split(".")[-1].strip().replace(" ", "_")
@@ -164,7 +152,7 @@ def main() -> None:
     os.makedirs(os.path.dirname(args.output) or ".", exist_ok=True)
     comparison_df.to_csv(args.output, encoding="utf-8-sig")
 
-    print(f"\n✨ 분석 완료! 결과 저장: {args.output}")
+    print(f"\n 분석 완료! 결과 저장: {args.output}")
     print(comparison_df.to_string())
 
 
