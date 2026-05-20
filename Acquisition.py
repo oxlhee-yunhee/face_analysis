@@ -23,7 +23,7 @@ _face_mesh = mp.solutions.face_mesh.FaceMesh(
     static_image_mode=False,
 )
 
-# 정규화 기준: 양안 거리를 이 값(px)으로 맞춤
+# 정규화 기준: 양안 거리 200px
 EYE_DIST_NORM = 200.0
 
 
@@ -39,7 +39,7 @@ def get_aligned_landmarks(frame: np.ndarray) -> np.ndarray | None:
 
     Returns
     -------
-    np.ndarray of shape (478, 2) or None (얼굴 미검출 시)
+    np.ndarray of shape (478, 2) or None 
     """
     rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     results = _face_mesh.process(rgb)
@@ -108,7 +108,7 @@ def find_dynamic_interval(
 
 def process_video(video_path: str, save_dir: str) -> None:
     """
-    영상 1개를 처리하여 dual_trajectory_analysis.csv 및 landmarks.npy 저장.
+    영상 1개 처리 -> dual_trajectory_analysis.csv 및 landmarks.npy 저장.
 
     CSV 컬럼 구조 (Pair당 6열):
         P{i}_L_X, P{i}_L_Y, P{i}_R_X, P{i}_R_Y, P{i}_L_Vel, P{i}_R_Vel
@@ -127,12 +127,12 @@ def process_video(video_path: str, save_dir: str) -> None:
     cap.release()
 
     if not full_seq:
-        print(f"   > [SKIP] 프레임 없음: {os.path.basename(video_path)}")
+        print(f"   > 프레임 없음: {os.path.basename(video_path)}")
         return
 
     rest_idx, peak_idx = find_dynamic_interval(full_seq)
     if rest_idx is None:
-        print(f"   > [SKIP] 유효한 표정 구간 없음: {os.path.basename(video_path)}")
+        print(f"   > 유효한 표정 구간 없음: {os.path.basename(video_path)}")
         return
 
     lm_seq = full_seq[rest_idx : peak_idx + 1]
@@ -174,7 +174,7 @@ def process_video(video_path: str, save_dir: str) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="얼굴 영상에서 랜드마크 궤적을 추출하여 CSV/NPY로 저장합니다."
+        description="얼굴 영상에서 랜드마크 궤적을 추출 및 저장합니다."
     )
     parser.add_argument("--video_root",  required=True, help="입력 영상 루트 폴더")
     parser.add_argument("--output_root", required=True, help="결과 저장 루트 폴더")
@@ -193,7 +193,7 @@ def main() -> None:
         save_path   = os.path.join(args.output_root, f"{person_name}_{file_name}")
         process_video(v_path, save_path)
 
-    print("\n✨ 모든 분석이 완료되었습니다!")
+    print("\n 모든 분석이 완료되었습니다!")
 
 
 if __name__ == "__main__":
